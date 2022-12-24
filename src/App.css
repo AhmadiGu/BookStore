@@ -262,7 +262,8 @@ a {
   width: 30%;
 }
 
-.add-btn {
+.add-btn,
+.cat-btn {
   cursor: pointer;
   width: 20%;
   padding: 12px;
@@ -280,4 +281,18 @@ a {
   background-color: #e8e8e8;
   width: 92%;
   margin: 4%;
+}
+
+.category-page {
+  padding: 4%;
+  display: flex;
+  gap: 60px;
+}
+
+.cat-title {
+  font-size: 30px;
+}
+
+.cat-btn {
+  font-size: 1.5rem;
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Categories = () => (
-  <div>
-    <h2>Categories</h2>
-    <button type="submit">Check status</button>
+  <div className="category-page">
+    <h2 className="cat-title">Categories</h2>
+    <button type="submit" className="cat-btn">Check status</button>
   </div>
 );
 
