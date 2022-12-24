@@ -15,6 +15,9 @@
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
   - [Usage](#usage)
+  - [Install](#install)
+  - [Run tests](#run-tests)
+  - [Deployment](#deployment)  
 - [👥 Authors](#authors) 
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
@@ -91,12 +94,19 @@ Clone this repository to your desired folder:
 
 - cd to your folder
 
-- git clone my repository 
+- git clone my repository   
 
- 
- 
-### Run
-npm start
+ ###Install
+Install this project with:npm i
+
+ ###Usage
+To run the project, execute the following command:npm start
+
+ ###Run tests
+To run tests, run the following command:npm run test
+
+###Deployment
+You can deploy this project using:render
 
  
 

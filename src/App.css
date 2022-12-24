@@ -255,7 +255,11 @@ a {
 }
 
 .add-title {
-  width: 50%;
+  width: 25%;
+}
+
+.add-author {
+  width: 25%;
 }
 
 .add-category {
