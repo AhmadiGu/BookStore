@@ -27,7 +27,7 @@ const bookReducer = (state = initialState, action) => {
     case `${REMOVE_BOOK}/fulfilled`:
       return {
         ...state,
-        books: state.books.filter((book) => book.itemId !== action.payload),
+        books: state.books.filter((book) => book.item_id !== action.payload),
       };
 
     default:
@@ -38,7 +38,7 @@ const bookReducer = (state = initialState, action) => {
 export const postBook = createAsyncThunk(POST_BOOK, async (book) => {
   const bookObj = {
     ...book,
-    itemId: Date.now(),
+    item_id: Date.now(),
   };
   await postData(bookObj);
   return bookObj;
@@ -49,14 +49,14 @@ export const getBooks = createAsyncThunk(GET_BOOK, async () => {
   const data = await getData();
   Object.keys(data).forEach((id) => {
     books.push({
-      itemId: id,
+      item_id: id,
       ...data[id][0],
     });
   });
   return books;
 });
 export const removeBook = createAsyncThunk(REMOVE_BOOK, async (id) => {
-  removeData(id);
+  await removeData(id);
   return id;
 });
 export default bookReducer;
