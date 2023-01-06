@@ -1,65 +1,62 @@
-const ADD_BOOK = 'BookStore/book/ADD_BOOK';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { postData, getData, removeData } from '../../components/services/service';
+
+const GET_BOOK = 'BookStore/book/GET_BOOK';
 const REMOVE_BOOK = 'BookStore/book/REMOVE_BOOK';
+const POST_BOOK = 'BookStore/book/POST_BOOK';
 
 const initialState = {
-  books: [
-
-    {
-      id: 1,
-      title: 'The Hunger Games',
-      author: 'Suzanne Collins',
-      category: 'Action',
-      currentChapter: 'Chapter 17',
-      progress: 64,
-    },
-    {
-      id: 2,
-      title: 'Dune',
-      author: 'Frank Herbert',
-      category: 'Science Fiction',
-      currentChapter: 'Chapter 3: Lesson Learned',
-      progress: 6,
-    },
-    {
-      id: 3,
-      title: 'Capital in the Twenty-First Century',
-      author: 'Suzanne Collins',
-      category: 'Action',
-      currentChapter: 'Chapter 17',
-      progress: 0,
-    },
-
-  ],
+  books: [],
 };
 
 const bookReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_BOOK:
+    case `${POST_BOOK}/fulfilled`:
       return {
         ...state,
         books: [...state.books, action.payload],
+
       };
 
-    case REMOVE_BOOK:
+    case `${GET_BOOK}/fulfilled`:
       return {
         ...state,
-        books: state.books.filter((book) => book.id !== action.payload),
+        books: action.payload,
+      };
+
+    case `${REMOVE_BOOK}/fulfilled`:
+      return {
+        ...state,
+        books: state.books.filter((book) => book.itemId !== action.payload),
       };
 
     default:
       return state;
   }
 };
-export const addBook = (id, title, author, category) => ({
-  type: ADD_BOOK,
-  payload: {
-    id, title, author, category,
-  },
+
+export const postBook = createAsyncThunk(POST_BOOK, async (book) => {
+  const bookObj = {
+    ...book,
+    itemId: Date.now(),
+  };
+  await postData(bookObj);
+  return bookObj;
 });
 
-export const removeBook = (id) => ({
-  type: REMOVE_BOOK,
-  payload: id,
+export const getBooks = createAsyncThunk(GET_BOOK, async () => {
+  const books = [];
+  const data = await getData();
+  Object.keys(data).forEach((id) => {
+    books.push({
+      itemId: id,
+      ...data[id][0],
+    });
+  });
+  return books;
 });
-
+export const removeBook = createAsyncThunk(REMOVE_BOOK, async (id) => {
+  removeData(id);
+  return id;
+});
 export default bookReducer;
