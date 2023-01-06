@@ -13,6 +13,12 @@ a {
   text-decoration: none;
 }
 
+button:hover {
+  background: transparent;
+  color: rgba(10, 10, 10, 0.829);
+  box-shadow: 2px 2px 2px #0290ff, -2px -2px 2px #0290ff;
+}
+
 .App {
   background-color: whitesmoke;
   width: 92%;
