@@ -4,7 +4,7 @@ import { removeBook } from '../redux/book/book';
 
 const Book = ({ book }) => {
   const {
-    id, category, title, author, progress = '0', currentChapter = 'Chapter 1',
+    itemId, category, title, author, progress = '0', currentChapter = 'Chapter 1',
   } = book;
 
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Book = ({ book }) => {
         <div className="actions">
           <button type="button" className="btn comment"> Comment</button>
           <div className="btn-divider" />
-          <button type="button" className="btn remove" onClick={() => dispatch(removeBook(id))}> Remove</button>
+          <button type="button" className="btn remove" onClick={() => dispatch(removeBook(itemId))}> Remove</button>
           <div className="btn-divider" />
           <button type="button" className="btn edit"> Edit</button>
 

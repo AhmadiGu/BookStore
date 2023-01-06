@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addBook } from '../redux/book/book';
+import { postBook } from '../redux/book/book';
+
+// import { postData } from './services/service';
 
 const AddBook = () => {
   const dispatch = useDispatch();
-  const [title, setBookName] = useState('');
-  const [author, setAutherName] = useState('');
-  const [id, setBookId] = useState('');
-  const [category, setCategory] = useState('');
+  const [book, setBook] = useState({
+    title: '',
+    author: '',
+    category: '',
+  });
 
   const prevDefault = (e) => {
     e.preventDefault();
-    setBookName('');
-    setAutherName('');
-    setBookId(Date.now());
+    setBook(() => ({
+      title: '',
+      author: '',
+    }));
+  };
+
+  const handleBook = (e) => {
+    const { name, value } = e.target;
+    setBook((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
   return (
@@ -24,21 +36,25 @@ const AddBook = () => {
           className="form-item add-title"
           type="text"
           placeholder="Book title"
-          value={title}
-          onChange={(e) => setBookName(e.target.value)}
+          name="title"
+          value={book.title}
+          onChange={handleBook}
+
         />
+
         <input
           className="form-item add-author"
           type="text"
           placeholder="Book author"
-          value={author}
-          onChange={(e) => setAutherName(e.target.value)}
+          name="author"
+          value={book.author}
+          onChange={handleBook}
         />
         <select
           className="form-item add-category"
           name="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={book.category}
+          onChange={handleBook}
         >
           <option className="disable">Category</option>
           <option value="Action">Action</option>
@@ -46,9 +62,9 @@ const AddBook = () => {
           <option value="Economy">Economy</option>
         </select>
         <button
-          type="button"
+          type="submit"
           className="add-btn"
-          onClick={() => dispatch(addBook(id, title, author, category))}
+          onClick={() => dispatch(postBook(book))}
         >
           Add Book
         </button>
